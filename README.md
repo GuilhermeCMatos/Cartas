@@ -81,6 +81,7 @@ O jogo inclui diferentes tipos de cartas, cada uma com suas características esp
 ## 📞 Contato
 
 Se você tiver dúvidas, sugestões ou quiser contribuir com o projeto, fique à vontade para entrar em contato!
+
 *guimatosbariri@gmail.com ou (14) 98122-1031*
 
 ---
