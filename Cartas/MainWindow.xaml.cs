@@ -63,12 +63,12 @@ namespace Cartas
             string inpt = Interaction.InputBox("Posição (1–6):", "Remover Carta", "1");
             if (!int.TryParse(inpt, out int pos) || pos < 1 || pos > 6)
             {
-                MessageBox.Show("Entrada inválida."); return;
+                MessageBox.Show("Entrada inválida." , "Erro", MessageBoxButton.OK, MessageBoxImage.Warning); return;
             }
             int idx = pos - 1;
             if (!slotsOcupados[idx])
             {
-                MessageBox.Show("Não tem carta nesse espaço."); return;
+                MessageBox.Show("Não tem carta nesse espaço.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); return;
             }
 
             // Limpa o Child do slot
@@ -97,12 +97,28 @@ namespace Cartas
 
         private void finalizar_Click(object sender, RoutedEventArgs e)
         {
+            // Verifica se a mão está completa
+            int cartasNaMao = 0;
+            foreach (var carta in mao)
+            {
+                if (!string.IsNullOrEmpty(carta))
+                    cartasNaMao++;
+            }
+
+            if (cartasNaMao < 6)
+            {
+                MessageBox.Show("Você precisa ter 6 cartas na mão para finalizar o jogo!", "Aviso", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             // Finaliza e mostra a pontuação
             var calculator = new ScoreCalculator();
             int score = calculator.ComputeScore(mao);
             MessageBox.Show($"Sua pontuação final foi: {score}", "Fim de Jogo");
+
             limpar_Click(null, null);
         }
+
 
         private void MostrarRegras(object sender, RoutedEventArgs e)
         {
