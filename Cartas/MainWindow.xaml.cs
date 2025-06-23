@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -96,6 +97,7 @@ namespace Cartas
 
         private void finalizar_Click(object sender, RoutedEventArgs e)
         {
+            // Finaliza e mostra a pontuação
             var calculator = new ScoreCalculator();
             int score = calculator.ComputeScore(mao);
             MessageBox.Show($"Sua pontuação final foi: {score}", "Fim de Jogo");
@@ -104,7 +106,11 @@ namespace Cartas
 
         private void MostrarRegras(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(Regras.Texto, "Regras do Jogo");
+            // Mostra as regras
+            new Thread(new ThreadStart(delegate
+            {
+                MessageBox.Show(Regras.Texto, "Regras do Jogo");
+            })).Start();
         }
 
         private void limpar_Click(object sender, RoutedEventArgs e)
